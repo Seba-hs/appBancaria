@@ -1,9 +1,3 @@
-/*
- * Use this CSS to learn some intersting techniques,
- * in case you're wondering how I built the UI.
- * Have fun! 😁
- */
-
 * {
   margin: 0;
   padding: 0;
@@ -154,11 +148,11 @@ nav {
   color: #666;
 }
 
-.movements__type--deposit {
+.movements__type--deposito {
   background-image: linear-gradient(to top left, #39b385, #9be15d);
 }
 
-.movements__type--withdrawal {
+.movements__type--retiro {
   background-image: linear-gradient(to top left, #e52a5a, #ff585f);
 }
 
