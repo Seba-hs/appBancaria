@@ -1,5 +1,6 @@
 "use strict";
 
+// datos
 const account1 = {
   owner: "Jonas Smith",
   movements: [200, 455.23, -306.5, 25000, -642.21, -133.9, 79.97, 1300],
@@ -17,7 +18,7 @@ const account1 = {
     "2023-08-01T12:34:56",
   ],
   currency: "EUR",
-  locale: "pt-PT", // de-DE
+  locale: "pt-PT",
 };
 
 const account2 = {
@@ -62,33 +63,33 @@ const account3 = {
 
 const accounts = [account1, account2, account3];
 
-// Elements
-const labelBienvenido = document.querySelector(".welcome");
-const labelFecha = document.querySelector(".date");
-const labelSaldo = document.querySelector(".balance__value");
-const labelSumIn = document.querySelector(".summary__value--in");
-const labelSumOut = document.querySelector(".summary__value--out");
-const labelSumInterest = document.querySelector(".summary__value--interest");
+// Elementos
+const labelBienvenido = document.querySelector(".bienvenida");
+const labelFecha = document.querySelector(".fecha");
+const labelSaldo = document.querySelector(".saldo__valor");
+const labelResDentro = document.querySelector(".resumen__valor--dentro");
+const labelResFuera = document.querySelector(".resumen__valor--fuera");
+const labelResInters = document.querySelector(".resumen__valor--interes");
 const labelTimer = document.querySelector(".timer");
 
 const containerApp = document.querySelector(".app");
-const containerMovements = document.querySelector(".movements");
+const containerMovimientos = document.querySelector(".movimientos");
 
 const btnLogin = document.querySelector(".login__btn");
-const btnTransfer = document.querySelector(".form__btn--transfer");
-const btnLoan = document.querySelector(".form__btn--loan");
-const btnClose = document.querySelector(".form__btn--close");
-const btnSort = document.querySelector(".btn--sort");
+const btnTransferir = document.querySelector(".form__btn--transferir");
+const btnPrestamo = document.querySelector(".form__btn--prestamo");
+const btnEliminar = document.querySelector(".form__btn--eliminar");
+const btnOrdenar = document.querySelector(".btn--ordenar");
 
-const inputLoginUsername = document.querySelector(".login__input--user");
+const inputLoginUsername = document.querySelector(".login__input--usuario");
 const inputLoginPin = document.querySelector(".login__input--pin");
-const inputTransferTo = document.querySelector(".form__input--to");
-const inputTransferAmount = document.querySelector(".form__input--amount");
-const inputLoanAmount = document.querySelector(".form__input--loan-amount");
-const inputCloseUsername = document.querySelector(".form__input--user");
+const inputTransferTo = document.querySelector(".form__input--para");
+const inputTransferAmount = document.querySelector(".form__input--monto");
+const inputLoanAmount = document.querySelector(".form__input--prestamo-monto");
+const inputCloseUsername = document.querySelector(".form__input--usuario");
 const inputClosePin = document.querySelector(".form__input--pin");
 //
-//------------------------  FUNCTIONS ----------------------------------------
+//------------------------  Funciones ----------------------------------------
 //
 const formatoFechaMovimientos = function (fecha, locale) {
   const calcDiasPasados = (fecha1, fecha2) =>
@@ -112,17 +113,13 @@ const formatoSaldoActual = function (valor, locale, currency) {
 };
 
 const mostrarMovimientos = function (acc, ordenar = false) {
-  containerMovements.innerHTML = "";
-
+  containerMovimientos.innerHTML = "";
   const movs = ordenar
     ? acc.movements.slice().sort((a, b) => a - b)
     : acc.movements;
 
   movs.forEach(function (mov, i) {
     const tipo = mov > 0 ? "deposito" : "retiro";
-
-    // recorremos los dates en base al indice (aprovechamos el loop)
-
     const fecha = new Date(acc.movementsDates[i]);
     const mostrarFecha = formatoFechaMovimientos(fecha, acc.locale);
 
@@ -133,42 +130,42 @@ const mostrarMovimientos = function (acc, ordenar = false) {
     );
 
     const html = `
-      <div class="movements__row">
-        <div class="movements__type movements__type--${tipo}">${
+      <div class="movimientos__fila">
+        <div class="movimientos__tipo movimientos__tipo--${tipo}">${
       i + 1
     } ${tipo}</div>
-        <div class="movements__date">${mostrarFecha}</div>
-        <div class="movements__value">${movimientoFormateado}</div>
+        <div class="movimientos__fecha">${mostrarFecha}</div>
+        <div class="movimientos__valor">${movimientoFormateado}</div>
       </div>
     `;
-    containerMovements.insertAdjacentHTML("afterbegin", html);
+    containerMovimientos.insertAdjacentHTML("afterbegin", html);
   });
 };
-//
 // -----------------------------------------------------------------------------
-//
 const calcSaldoActual = function (acc) {
   acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
-
   labelSaldo.textContent = formatoSaldoActual(
     acc.balance,
     acc.locale,
     acc.currency
   );
 };
-//
+
 // ------------------------------------------------------------------------------
-//
 const calcResumen = function (acc) {
   const dentro = acc.movements
     .filter((mov) => mov > 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumIn.textContent = formatoSaldoActual(dentro, acc.locale, acc.currency);
+  labelResDentro.textContent = formatoSaldoActual(
+    dentro,
+    acc.locale,
+    acc.currency
+  );
 
   const fuera = acc.movements
     .filter((mov) => mov < 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumOut.textContent = formatoSaldoActual(
+  labelResFuera.textContent = formatoSaldoActual(
     Math.abs(fuera),
     acc.locale,
     acc.currency
@@ -177,22 +174,18 @@ const calcResumen = function (acc) {
   const interes = acc.movements
     .filter((mov) => mov > 0)
     .map((deposit) => (deposit * acc.interestRate) / 100)
-    // recibirimos un 1.2% de los depositos
-    // pero el banco solo incluye el interes en depositos mayor a 1
     .filter((int, i, arr) => {
-      // console.log(arr);
       return int >= 1;
     })
     .reduce((acc, int) => acc + int, 0);
-  labelSumInterest.textContent = formatoSaldoActual(
+  labelResInters.textContent = formatoSaldoActual(
     interes,
     acc.locale,
     acc.currency
   );
 };
-//
 // ----------------------------------------------------------------------------------
-//
+
 const crearUserName = function (accs) {
   accs.forEach(function (acc) {
     acc.username = acc.owner
@@ -238,13 +231,11 @@ btnLogin.addEventListener("click", function (e) {
   cuentaActual = accounts.find(
     (acc) => acc.username === inputLoginUsername.value
   );
-  // console.log(cuentaActual)
   if (cuentaActual?.pin === Number(inputLoginPin.value)) {
     labelBienvenido.textContent = `Bienvenid@ de vuelta ${
       cuentaActual.owner.split(" ")[0]
     }`;
     containerApp.style.opacity = 100;
-
     // 1) formato fecha según el perfil
     const now = new Date();
     const options = {
@@ -261,9 +252,8 @@ btnLogin.addEventListener("click", function (e) {
     ).format(now);
 
     inputLoginUsername.value = inputLoginPin.value = "";
-    inputLoginPin.blur(); //saca el puntero del campo pin
+    inputLoginPin.blur();
 
-    // verificamos que no exista un timer, si existe lo borra y en la sgte lo inicia de nuevo
     if (timer) clearInterval(timer);
     timer = empezarLogoutTimer();
 
@@ -271,13 +261,12 @@ btnLogin.addEventListener("click", function (e) {
   }
 });
 
-btnTransfer.addEventListener("click", function (e) {
+btnTransferir.addEventListener("click", function (e) {
   e.preventDefault();
   const cantidad = Number(inputTransferAmount.value);
   const receiverAcc = accounts.find(
     (acc) => acc.username === inputTransferTo.value
   );
-  // console.log(cantidad, receiverAcc);
   inputTransferAmount.value = inputTransferTo.value = "";
 
   if (
@@ -302,7 +291,7 @@ btnTransfer.addEventListener("click", function (e) {
   }
 });
 
-btnLoan.addEventListener("click", function (e) {
+btnPrestamo.addEventListener("click", function (e) {
   e.preventDefault();
   const prestamo = Math.floor(inputLoanAmount.value);
   if (
@@ -320,7 +309,7 @@ btnLoan.addEventListener("click", function (e) {
   inputLoanAmount.value = "";
 });
 
-btnClose.addEventListener("click", function (e) {
+btnEliminar.addEventListener("click", function (e) {
   e.preventDefault();
   if (
     inputCloseUsername.value === cuentaActual.username &&
@@ -331,16 +320,15 @@ btnClose.addEventListener("click", function (e) {
     );
     console.log(index);
 
-    // borramos cuenta
     accounts.splice(index, 1);
     containerApp.style.opacity = 0;
-    labelBienvenido.textContent = `Bienvenido, para comenzar inicia sesión`;
+    labelBienvenido.textContent = `Bienvenid@, para comenzar inicia sesión`;
   }
   inputCloseUsername.value = inputClosePin.value = "";
 });
 
 let ordenar = false;
-btnSort.addEventListener("click", function (e) {
+btnOrdenar.addEventListener("click", function (e) {
   e.preventDefault();
   mostrarMovimientos(cuentaActual, !ordenar);
   ordenar = !ordenar;

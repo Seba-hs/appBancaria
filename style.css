@@ -14,7 +14,7 @@ body {
   color: #444;
   background-color: #f3f3f3;
   height: 100vh;
-  padding: 2rem;
+  /* padding: 2rem; */
 }
 
 nav {
@@ -24,7 +24,7 @@ nav {
   padding: 0 2rem;
 }
 
-.welcome {
+.bienvenida {
   font-size: 1.9rem;
   font-weight: 500;
 }
@@ -71,13 +71,13 @@ nav {
 
 .login__btn:hover,
 .login__btn:focus,
-.btn--sort:hover,
-.btn--sort:focus {
+.btn--ordenar:hover,
+.btn--ordenar:focus {
   outline: none;
   color: #777;
 }
 
-/* MAIN */
+/* Principal */
 .app {
   position: relative;
   max-width: 100rem;
@@ -86,13 +86,11 @@ nav {
   grid-template-columns: 4fr 3fr;
   grid-template-rows: auto repeat(3, 15rem) auto;
   gap: 2rem;
-
-  /* NOTE This creates the fade in/out anumation */
   opacity: 0;
   transition: all 1s;
 }
 
-.balance {
+.saldo {
   grid-column: 1 / span 2;
   display: flex;
   align-items: flex-end;
@@ -100,38 +98,38 @@ nav {
   margin-bottom: 2rem;
 }
 
-.balance__label {
+.saldo__label {
   font-size: 2.2rem;
   font-weight: 500;
   margin-bottom: -0.2rem;
 }
 
-.balance__date {
+.saldo__fecha {
   font-size: 1.4rem;
   color: #888;
 }
 
-.balance__value {
+.saldo__valor {
   font-size: 4.5rem;
   font-weight: 400;
 }
 
-/* MOVEMENTS */
-.movements {
+/* Movimientos */
+.movimientos {
   grid-row: 2 / span 3;
   background-color: #fff;
   border-radius: 1rem;
   overflow: scroll;
 }
 
-.movements__row {
+.movimientos__fila {
   padding: 2.25rem 4rem;
   display: flex;
   align-items: center;
   border-bottom: 1px solid #eee;
 }
 
-.movements__type {
+.movimientos__tipo {
   font-size: 1.1rem;
   text-transform: uppercase;
   font-weight: 500;
@@ -141,28 +139,28 @@ nav {
   margin-right: 2rem;
 }
 
-.movements__date {
+.movimientos__fecha {
   font-size: 1.1rem;
   text-transform: uppercase;
   font-weight: 500;
   color: #666;
 }
 
-.movements__type--deposito {
+.movimientos__tipo--deposito {
   background-image: linear-gradient(to top left, #39b385, #9be15d);
 }
 
-.movements__type--retiro {
+.movimientos__tipo--retiro {
   background-image: linear-gradient(to top left, #e52a5a, #ff585f);
 }
 
-.movements__value {
+.movimientos__valor {
   font-size: 1.7rem;
   margin-left: auto;
 }
 
-/* SUMMARY */
-.summary {
+/* Resumen */
+.resumen {
   grid-row: 5 / 6;
   display: flex;
   align-items: baseline;
@@ -170,28 +168,28 @@ nav {
   margin-top: 1rem;
 }
 
-.summary__label {
+.resumen__label {
   font-size: 1.2rem;
   font-weight: 500;
   text-transform: uppercase;
   margin-right: 0.8rem;
 }
 
-.summary__value {
+.resumen__valor {
   font-size: 2.2rem;
   margin-right: 2.5rem;
 }
 
-.summary__value--in,
-.summary__value--interest {
+.resumen__valor--dentro,
+.resumen__valor--interes {
   color: #66c873;
 }
 
-.summary__value--out {
+.resumen__valor--fuera {
   color: #f5465d;
 }
 
-.btn--sort {
+.btn--ordenar {
   margin-left: auto;
   border: none;
   background: none;
@@ -200,22 +198,22 @@ nav {
   cursor: pointer;
 }
 
-/* OPERATIONS */
-.operation {
+/* Operaciones */
+.operacion {
   border-radius: 1rem;
   padding: 3rem 4rem;
   color: #333;
 }
 
-.operation--transfer {
+.operacion--transferir {
   background-image: linear-gradient(to top left, #ffb003, #ffcb03);
 }
 
-.operation--loan {
+.operacion--prestamo {
   background-image: linear-gradient(to top left, #39b385, #9be15d);
 }
 
-.operation--close {
+.operacion--eliminar {
   background-image: linear-gradient(to top left, #e52a5a, #ff585f);
 }
 
@@ -233,14 +231,12 @@ h2 {
   gap: 0.4rem 1rem;
 }
 
-/* Exceptions for interst */
-.form.form--loan {
+.form.form--prestamo {
   grid-template-columns: 2.5fr 1fr 2.5fr;
 }
-.form__label--loan {
+.form__label--prestamo {
   grid-row: 2;
 }
-/* End exceptions */
 
 .form__input {
   width: 100%;
@@ -279,7 +275,7 @@ h2 {
   background-color: rgba(255, 255, 255, 0.8);
 }
 
-.logout-timer {
+.cerrar-timer {
   padding: 0 0.3rem;
   margin-top: 1.9rem;
   text-align: right;
@@ -288,4 +284,270 @@ h2 {
 
 .timer {
   font-weight: 600;
+}
+/* ---------------------------------------------------------------------------------------------------------------------------------- */
+
+@media screen and (max-width: 900px) {
+  body {
+    font-family: "Poppins", sans-serif;
+    color: #444;
+    background-color: #f3f3f3;
+    height: 100vh;
+    padding: 2rem;
+  }
+
+  nav {
+    display: flex;
+    flex-direction: column; /* Ordenar elementos de arriba hacia abajo */
+    align-items: center; /* Centrar elementos horizontalmente */
+    height: 250px; /* Establecer altura del 100% de la ventana para centrar verticalmente */
+    text-align: center;
+  }
+
+  nav img {
+    height: 60px;
+  }
+
+  .bienvenida {
+    font-size: 1.9rem;
+  }
+
+  .logo {
+    height: 5.25rem;
+  }
+
+  .login {
+    display: grid;
+  }
+
+  .login input {
+    margin-bottom: 10px;
+    width: 300px;
+  }
+  .login__input {
+    border: none;
+    padding: 0.5rem 2rem;
+    font-size: 1.6rem;
+    font-family: inherit;
+    text-align: center;
+    border-radius: 10rem;
+  }
+
+  .login__input:focus {
+    border: 1px solid #ccc;
+  }
+
+  .login__input::placeholder {
+    color: #bbb;
+  }
+
+  .login__btn {
+    border: none;
+    background: none;
+    font-size: 2.2rem;
+    color: inherit;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .login__btn:hover,
+  .login__btn:focus,
+  .btn--sort:hover,
+  .btn--sort:focus {
+    outline: none;
+    color: #777;
+  }
+
+  /* ----------------------------- App ----------------------------------------------------- */
+  .app {
+    display: flex;
+    flex-direction: column;
+    font-family: "Poppins", sans-serif;
+    color: #444;
+    background-color: #f3f3f3;
+    opacity: 0;
+  }
+
+  /* saldo mobile */
+  .saldo {
+    text-align: center;
+    grid-column: 1 / span 2;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    text-align: center;
+    width: 90%;
+  }
+
+  .saldo__label {
+    font-size: 1.4rem;
+    font-weight: 500;
+    margin-bottom: -0.2rem;
+  }
+
+  .saldo__fecha {
+    font-size: 1.2rem;
+    color: #888;
+  }
+
+  .saldo__valor {
+    font-size: 2.2rem;
+  }
+
+  /* moviminentos mobile */
+  .movimientos {
+    grid-row: 1 / span 2;
+    background-color: #fff;
+    border-radius: 1rem;
+    overflow: scroll;
+  }
+
+  .movimientos__fila {
+    padding: 1.25rem 2rem;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+  }
+
+  .movimientos__tipo {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: #fff;
+    padding: 0.1rem 1rem;
+    border-radius: 10rem;
+    margin-right: 2rem;
+  }
+
+  .movimientos__fecha {
+    font-size: 1rem;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: #666;
+  }
+
+  .movimientos__tipo--deposito {
+    background-image: linear-gradient(to top left, #39b385, #9be15d);
+  }
+
+  .movimientos__tipo--retiro {
+    background-image: linear-gradient(to top left, #e52a5a, #ff585f);
+  }
+
+  .movimientos__valor {
+    font-size: 1.8rem;
+    margin-left: auto;
+  }
+
+  /* Resumen Mobile */
+  .resumen {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .resumen__label {
+    flex: 1;
+    text-align: right; /* Alinea el texto a la derecha */
+    margin-right: 1.5em; /* Espacio entre la etiqueta y el valor */
+  }
+
+  .resumen__valor {
+    flex: 1;
+    text-align: left;
+  }
+
+  .resumen__valor--dentro,
+  .resumen__valor--interes {
+    color: #66c873;
+  }
+
+  .resumen__valor--fuera {
+    color: #f5465d;
+  }
+
+  .btn--ordenar {
+    margin-left: auto;
+    border: none;
+    background: none;
+    font-size: 1.3rem;
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  /* Operaciones */
+  .operacion {
+    border-radius: 1rem;
+    padding: 3rem 4rem;
+    color: #333;
+  }
+
+  h2 {
+    margin-bottom: 1.5rem;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #333;
+  }
+
+  .form {
+    display: grid;
+    grid-template-rows: auto auto;
+    gap: 0.4rem 1rem;
+  }
+
+  .form.form--prestamo {
+    grid-template-columns: 2.5fr 1fr 2.5fr;
+  }
+  .form__label--prestamo {
+    grid-row: 2;
+  }
+
+  .form__input {
+    width: 100%;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.4);
+    font-family: inherit;
+    font-size: 1.5rem;
+    text-align: center;
+    color: #333;
+    padding: 0.3rem 1rem;
+    border-radius: 0.7rem;
+    transition: all 0.3s;
+  }
+
+  .form__input:focus {
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.6);
+  }
+
+  .form__label {
+    font-size: 1.3rem;
+    text-align: center;
+  }
+
+  .form__btn {
+    border: none;
+    border-radius: 0.7rem;
+    font-size: 1.8rem;
+    background-color: #fff;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .form__btn:focus {
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.8);
+  }
+
+  .cerrar-timer {
+    padding: 0 0.3rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-size: 1.25rem;
+  }
+
+  .timer {
+    font-weight: 600;
+  }
 }
