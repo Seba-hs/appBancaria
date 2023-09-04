@@ -2,8 +2,8 @@
 
 // datos
 const account1 = {
-  owner: "Jonas Smith",
-  movements: [200, 455.23, -306.5, 25000, -642.21, -133.9, 79.97, 1300],
+  owner: "Cristobal Herrera",
+  movements: [2020, 455.23, -306.5, 25000, -642.21, -133.9, 79.97, 13000],
   interestRate: 1.2, // %
   pin: 1111,
 
@@ -17,13 +17,13 @@ const account1 = {
     "2023-08-01T01:40:56",
     "2023-08-01T12:34:56",
   ],
-  currency: "EUR",
+  currency: "CLP",
   locale: "pt-PT",
 };
 
 const account2 = {
   owner: "Armin Avila",
-  movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
+  movements: [5000, 3400, -150, -790, -3210, -1000, 85000, -30],
   interestRate: 1.5,
   pin: 2222,
 
@@ -43,7 +43,7 @@ const account2 = {
 
 const account3 = {
   owner: "Matías Marmolejo",
-  movements: [53000, 3400, -150, -790, -3210, -1000, 8500, -30],
+  movements: [53000, 34000, -150, -790, -3210, -1000, 85000, -30],
   interestRate: 1.5,
   pin: 3333,
 
@@ -141,7 +141,7 @@ const mostrarMovimientos = function (acc, ordenar = false) {
     containerMovimientos.insertAdjacentHTML("afterbegin", html);
   });
 };
-// -----------------------------------------------------------------------------
+
 const calcSaldoActual = function (acc) {
   acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
   labelSaldo.textContent = formatoSaldoActual(
@@ -151,7 +151,6 @@ const calcSaldoActual = function (acc) {
   );
 };
 
-// ------------------------------------------------------------------------------
 const calcResumen = function (acc) {
   const dentro = acc.movements
     .filter((mov) => mov > 0)
@@ -184,7 +183,6 @@ const calcResumen = function (acc) {
     acc.currency
   );
 };
-// ----------------------------------------------------------------------------------
 
 const crearUserName = function (accs) {
   accs.forEach(function (acc) {
