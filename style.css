@@ -77,6 +77,11 @@ nav {
   color: #777;
 }
 
+.datos {
+  margin: 10px;
+  opacity: 60%;
+}
+
 /* Principal */
 .app {
   position: relative;

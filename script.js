@@ -72,6 +72,7 @@ const labelResFuera = document.querySelector(".resumen__valor--fuera");
 const labelResInters = document.querySelector(".resumen__valor--interes");
 const labelTimer = document.querySelector(".timer");
 
+const datos = document.querySelector(".datos");
 const containerApp = document.querySelector(".app");
 const containerMovimientos = document.querySelector(".movimientos");
 
@@ -234,6 +235,7 @@ btnLogin.addEventListener("click", function (e) {
       cuentaActual.owner.split(" ")[0]
     }`;
     containerApp.style.opacity = 100;
+    datos.style.opacity = 0;
     // 1) formato fecha según el perfil
     const now = new Date();
     const options = {
